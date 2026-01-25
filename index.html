@@ -441,16 +441,82 @@
       }
     }
 
-    @media (max-width: 768px) {
-      .nav-links {
-        display: none;
-      }
+   
+  @media (max-width: 768px) {
+    
 
-      .mobile-menu-btn {
-        display: block;
+/* Show menu when active */
+.nav-links.active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(0) translateY(0);
+}
 
-      }
-    }
+
+  /* Navbar spacing */
+  .navbar {
+    padding: 12px 20px;
+  }
+
+  /* Mobile menu container */
+  .nav-links {
+    opacity: 0;
+  pointer-events: none;
+  transform: translateX(0) translateY(-15px);
+    position: fixed;
+    top: 75px;
+    left: 0;
+    width: 100%;
+    /* max-width: 420px; */
+
+    background: rgba(17, 24, 39, 0.97);
+    backdrop-filter: blur(18px);
+    border-radius: 18px;
+    padding: 12px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+    border: 1px solid var(--border);
+    z-index: 999;
+  }
+
+  /* Mobile links */
+  .nav-links a {
+    width: 100%;
+    text-align: start;
+    padding: 14px;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 500;
+    background: transparent;
+    transition: background 0.25s ease, transform 0.2s ease;
+  }
+
+  .nav-links a:hover {
+    background: rgba(249, 115, 22, 0.15);
+    transform: translateY(-1px);
+  }
+
+  /* Active tab */
+  .nav-links a.active {
+    background: linear-gradient(135deg, #f97316, #fb923c);
+    color: #fff;
+  }
+
+  /* Disable slider on mobile */
+  .nav-links span {
+    display: none;
+  }
+
+  /* Show hamburger button */
+  .mobile-menu-btn {
+    display: block;
+  }
+}
+
 
     /* Floating Particles */
     .particles {
@@ -1802,6 +1868,7 @@
 
     if (mobileMenuBtn) {
       mobileMenuBtn.addEventListener('click', () => {
+       navLinks.classList.toggle('active');
         if (navLinks.style.display === 'flex') {
           navLinks.style.display = 'none';
         } else {
