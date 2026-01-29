@@ -1,0 +1,1870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Services - 3D PrintStudio</title>
+  <meta name="description" content="Explore our professional 3D printing services including rapid prototyping, custom design, and batch production.">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* CSS Reset & Base */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --background: 220 15% 8%;
+      --foreground: 60 10% 95%;
+      --card: 220 15% 12%;
+      --card-foreground: 60 10% 95%;
+      --primary: 25 95% 55%;
+      --primary-foreground: 220 15% 8%;
+      --secondary: 220 15% 15%;
+      --secondary-foreground: 60 10% 95%;
+      --muted: 220 15% 18%;
+      --muted-foreground: 220 10% 60%;
+      --border: 220 15% 20%;
+      --ring: 25 95% 55%;
+      --radius: 0.75rem;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background-color: hsl(var(--background));
+      color: hsl(var(--foreground));
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .font-display {
+      font-family: 'Space Grotesk', system-ui, sans-serif;
+    }
+
+    /* Utility Classes */
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .text-gradient {
+      background: linear-gradient(135deg, hsl(25 95% 55%), hsl(35 100% 60%));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .glass-card {
+      background: hsl(220 15% 12% / 0.6);
+      backdrop-filter: blur(20px);
+      border: 1px solid hsl(220 15% 20% / 0.5);
+    }
+
+    .bg-gradient-primary {
+      background: linear-gradient(135deg, hsl(25 95% 55%), hsl(35 100% 60%));
+    }
+
+    .bg-gradient-dark {
+      background: linear-gradient(180deg, hsl(220 15% 10%), hsl(220 15% 8%));
+    }
+
+    .glow-primary {
+      box-shadow: 0 0 30px hsl(25 95% 55% / 0.3);
+    }
+
+    /* Animations */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(5deg); }
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% { opacity: 0.5; transform: scale(1); }
+      50% { opacity: 0.8; transform: scale(1.05); }
+    }
+
+    @keyframes fade-in-up {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes float-slow {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-30px); }
+    }
+
+    .animate-float { animation: float 6s ease-in-out infinite; }
+    .animate-float-slow { animation: float-slow 8s ease-in-out infinite; }
+    .animate-pulse-glow { animation: pulse-glow 4s ease-in-out infinite; }
+    .animate-fade-in-up { animation: fade-in-up 0.6s ease-out forwards; }
+
+    .animation-delay-200 { animation-delay: 0.2s; }
+    .animation-delay-400 { animation-delay: 0.4s; }
+    .animation-delay-600 { animation-delay: 0.6s; }
+
+    /* Scroll Reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-40px);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .reveal-left.active {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(40px);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .reveal-right.active {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .reveal-scale {
+      opacity: 0;
+      transform: scale(0.9);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .reveal-scale.active {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* Floating Particles */
+    .particles {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+    }
+
+    .particle-1 {
+      top: 5rem;
+      left: 2.5rem;
+      width: 16rem;
+      height: 16rem;
+      background: hsl(25 95% 55% / 0.1);
+      filter: blur(60px);
+      animation: pulse-glow 4s ease-in-out infinite;
+    }
+
+    .particle-2 {
+      bottom: 10rem;
+      right: 5rem;
+      width: 24rem;
+      height: 24rem;
+      background: hsl(25 95% 55% / 0.05);
+      filter: blur(60px);
+      animation: pulse-glow 4s ease-in-out infinite 0.4s;
+    }
+
+    .particle-3 {
+      top: 50%;
+      left: 33%;
+      width: 12rem;
+      height: 12rem;
+      background: hsl(25 95% 55% / 0.08);
+      filter: blur(40px);
+      animation: float-slow 8s ease-in-out infinite;
+    }
+
+    .dot {
+      position: absolute;
+      border-radius: 50%;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .dot-1 { top: 25%; right: 25%; width: 8px; height: 8px; background: hsl(25 95% 55% / 0.4); }
+    .dot-2 { top: 33%; left: 20%; width: 6px; height: 6px; background: hsl(25 95% 55% / 0.3); animation-delay: 0.2s; }
+    .dot-3 { bottom: 25%; right: 33%; width: 10px; height: 10px; background: hsl(25 95% 55% / 0.35); animation-delay: 0.4s; }
+    .dot-4 { top: 66%; left: 25%; width: 4px; height: 4px; background: hsl(60 10% 95% / 0.2); animation-delay: 0.6s; }
+
+    /* Navigation */
+    .navbar {
+      padding: 15px 40px;
+      position: sticky;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(10, 15, 26, 0.8);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(30, 58, 95, 0.5);
+
+    }
+
+    .navbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .logo-icon {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.875rem;
+      color: hsl(var(--primary-foreground));
+      background: linear-gradient(135deg, #f97316, #fb923c);
+    }
+
+    .logo-text {
+      font-weight: 600;
+      font-size: 1.125rem;
+    }
+
+    .logo-text span {
+      color: hsl(var(--primary));
+    }
+
+    .nav-links span {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      border-radius: 15px;
+      transition: transform 0.45s ease, width 0.45s ease;
+      z-index: 0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      background: linear-gradient(270deg, #ff6b00, #ff9500, #e65c00);
+      background-size: 300% 300%;
+      animation: btnMove 4s ease infinite;
+      border: none;
+      color: white;
+    }
+
+    @keyframes btnMove {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+
+    .nav-cart {
+      padding: 10px 15px;
+      color: #fff;
+      border-radius: 8px;
+      transition: background 0.3s;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      /* soft shadow for depth */
+
+    }
+
+    .nav-cart:hover {
+      background: #1e293b;
+    }
+
+    .mobile-menu-btn {
+      border-radius: 8px;
+
+      display: none;
+      padding: 10px 15px;
+      background: none;
+      border: none;
+      color: var(--foreground);
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      /* soft shadow for depth */
+
+    }
+
+    .mobile-menu-btn:hover {
+      background:  #1e293b;
+    }
+
+    @media (min-width: 1025px) and (max-width: 1440px) {
+      .nav-links {
+        position: relative;
+        width: 530px;
+        background: #1a1d224d;
+        border-radius: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 5px;
+        overflow: hidden;
+
+        /* Shadow for depth */
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+      }
+
+      .nav-links a {
+        position: relative;
+        display: inline-block;
+        font-size: 1em;
+        font-weight: 600;
+        color: white;
+        text-decoration: none;
+        padding: 10px 25px;
+        z-index: 1;
+        transition: color 0.3s ease, transform 0.3s ease;
+
+        /* Optional text glow on hover */
+        text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+      }
+
+      /* Hover color only (no scaling) */
+      .nav-links a:hover {
+        color: #fff;
+      }
+
+      /* Active link text color */
+      .nav-links a.active {
+        color: #fff;
+      }
+    }
+
+    @media (min-width: 1025px) and (max-width: 1440px) {
+      .nav-links {
+        position: relative;
+        width: 530px;
+        background: #1a1d224d;
+        border-radius: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 5px;
+        overflow: hidden;
+
+        /* Shadow for depth */
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+      }
+
+      .nav-links a {
+        position: relative;
+        display: inline-block;
+        font-size: 1em;
+        font-weight: 600;
+        color: white;
+        text-decoration: none;
+        padding: 10px 25px;
+        z-index: 1;
+        transition: color 0.3s ease, transform 0.3s ease;
+
+        /* Optional text glow on hover */
+        text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+      }
+
+      /* Hover color only (no scaling) */
+      .nav-links a:hover {
+        color: #fff;
+      }
+
+      /* Active link text color */
+      .nav-links a.active {
+        color: #fff;
+      }
+    }
+
+   
+  @media (max-width: 768px) {
+    
+
+/* Show menu when active */
+.nav-links.active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(0) translateY(0);
+}
+
+
+  /* Navbar spacing */
+  .navbar {
+    padding: 12px 20px;
+  }
+
+  /* Mobile menu container */
+  .nav-links {
+    opacity: 0;
+  pointer-events: none;
+  transform: translateX(0) translateY(-15px);
+    position: fixed;
+    top: 75px;
+    left: 0;
+    width: 100%;
+    /* max-width: 420px; */
+
+    background: rgba(17, 24, 39, 0.97);
+    backdrop-filter: blur(18px);
+    border-radius: 18px;
+    padding: 12px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+    border: 1px solid var(--border);
+    z-index: 999;
+  }
+
+  /* Mobile links */
+  .nav-links a {
+    text-decoration: none;
+    color: #fff;
+    width: 100%;
+    text-align: start;
+    padding: 14px;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 500;
+    background: transparent;
+    transition: background 0.25s ease, transform 0.2s ease;
+  }
+
+  .nav-links a:hover {
+    background: rgba(249, 115, 22, 0.15);
+    transform: translateY(-1px);
+  }
+
+  /* Active tab */
+  .nav-links a.active {
+    background: linear-gradient(135deg, #f97316, #fb923c);
+    color: #fff;
+  }
+
+  /* Disable slider on mobile */
+  .nav-links span {
+    display: none;
+  }
+
+  /* Show hamburger button */
+  .mobile-menu-btn {
+    display: block;
+  }
+}
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      min-height: 60vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding-top: 5rem;
+    }
+
+    .hero-content {
+      text-align: center;
+      max-width: 56rem;
+      margin: 0 auto;
+      position: relative;
+      z-index: 10;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      background: hsl(var(--secondary));
+      border: 1px solid hsl(var(--border));
+      margin-bottom: 2rem;
+    }
+
+    .hero-badge-dot {
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: 50%;
+      background: hsl(var(--primary));
+      animation: pulse 2s infinite;
+    }
+
+    .hero-badge-text {
+      font-size: 0.875rem;
+      color: hsl(var(--muted-foreground));
+    }
+
+    .hero-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      line-height: 1.1;
+    }
+
+    .hero-description {
+      font-size: 1.125rem;
+      color: hsl(var(--muted-foreground));
+      max-width: 42rem;
+      margin: 0 auto;
+    }
+
+    .hero-gradient {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 8rem;
+      background: linear-gradient(to top, hsl(var(--background)), transparent);
+    }
+
+    @media (min-width: 768px) {
+      .hero-title { font-size: 3.75rem; }
+    }
+
+    @media (min-width: 1024px) {
+      .hero-title { font-size: 4.5rem; }
+    }
+
+    /* Services Overview Section */
+    .services-overview {
+      padding: 6rem 0;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 48rem;
+      margin: 0 auto 4rem;
+    }
+
+    .section-badge {
+      display: inline-flex;
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      background: hsl(var(--secondary));
+      border: 1px solid hsl(var(--border));
+      font-size: 0.875rem;
+      color: hsl(var(--primary));
+      margin-bottom: 1.5rem;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .section-description {
+      font-size: 1.125rem;
+      color: hsl(var(--muted-foreground));
+    }
+
+    @media (min-width: 768px) {
+      .section-title { font-size: 2.5rem; }
+    }
+
+    /* Service Cards */
+    .services-grid {
+      display: grid;
+      gap: 2rem;
+    }
+
+    @media (min-width: 768px) {
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (min-width: 1024px) {
+      .services-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    .service-card {
+      padding: 2rem;
+      border-radius: 1.5rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, hsl(25 95% 55% / 0.1), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .service-card:hover::before {
+      opacity: 1;
+    }
+
+    .service-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px hsl(25 95% 55% / 0.1);
+      border-color: hsl(25 95% 55% / 0.3);
+    }
+
+    .service-icon {
+      width: 4rem;
+      height: 4rem;
+      border-radius: 1rem;
+      background: linear-gradient(135deg, hsl(25 95% 55%), hsl(35 100% 60%));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 0 30px hsl(25 95% 55% / 0.3);
+    }
+
+    .service-icon svg {
+      width: 2rem;
+      height: 2rem;
+      color: hsl(var(--primary-foreground));
+    }
+
+    .service-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+
+    .service-description {
+      color: hsl(var(--muted-foreground));
+      margin-bottom: 1.5rem;
+      line-height: 1.7;
+    }
+
+    .service-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .service-feature {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.875rem;
+      color: hsl(var(--muted-foreground));
+    }
+
+    .service-feature svg {
+      width: 1.25rem;
+      height: 1.25rem;
+      color: hsl(var(--primary));
+      flex-shrink: 0;
+    }
+
+    /* Process Section */
+    .process-section {
+      padding: 6rem 0;
+      background: linear-gradient(180deg, hsl(220 15% 10%), hsl(220 15% 8%));
+    }
+
+    .process-grid {
+      display: grid;
+      gap: 2rem;
+    }
+
+    @media (min-width: 768px) {
+      .process-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (min-width: 1024px) {
+      .process-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+
+    .process-card {
+      text-align: center;
+      padding: 2rem;
+      position: relative;
+    }
+
+    .process-number {
+      width: 3.5rem;
+      height: 3.5rem;
+      border-radius: 50%;
+      background: linear-gradient(135deg, hsl(25 95% 55%), hsl(35 100% 60%));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: hsl(var(--primary-foreground));
+      margin: 0 auto 1.5rem;
+      box-shadow: 0 0 30px hsl(25 95% 55% / 0.3);
+    }
+
+    .process-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    .process-description {
+      font-size: 0.875rem;
+      color: hsl(var(--muted-foreground));
+      line-height: 1.7;
+    }
+
+    .process-arrow {
+      display: none;
+      position: absolute;
+      right: -1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: hsl(var(--primary) / 0.5);
+    }
+
+    @media (min-width: 1024px) {
+      .process-card:not(:last-child) .process-arrow {
+        display: block;
+      }
+    }
+
+    /* Materials Section */
+    .materials-section {
+      padding: 6rem 0;
+    }
+
+    .materials-grid {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    @media (min-width: 640px) {
+      .materials-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (min-width: 1024px) {
+      .materials-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+
+    .material-card {
+      padding: 1.5rem;
+      border-radius: 1rem;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .material-card:hover {
+      transform: translateY(-4px);
+      border-color: hsl(var(--primary) / 0.3);
+    }
+
+    .material-icon {
+      width: 4rem;
+      height: 4rem;
+      border-radius: 50%;
+      background: hsl(var(--secondary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+      font-size: 1.5rem;
+    }
+
+    .material-name {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .material-description {
+      font-size: 0.875rem;
+      color: hsl(var(--muted-foreground));
+    }
+
+    /* Pricing Section */
+    .pricing-section {
+      padding: 6rem 0;
+      background: linear-gradient(180deg, hsl(220 15% 10%), hsl(220 15% 8%));
+    }
+
+    .pricing-grid {
+      display: grid;
+      gap: 2rem;
+      max-width: 72rem;
+      margin: 0 auto;
+    }
+
+    @media (min-width: 768px) {
+      .pricing-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    .pricing-card {
+      padding: 2rem;
+      border-radius: 1.5rem;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .pricing-card.featured {
+      border-color: hsl(var(--primary));
+      transform: scale(1.05);
+    }
+
+    .pricing-card.featured::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, hsl(25 95% 55% / 0.1), transparent);
+      border-radius: 1.5rem;
+    }
+
+    .pricing-badge {
+      position: absolute;
+      top: -0.75rem;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 0.25rem 1rem;
+      background: linear-gradient(135deg, hsl(25 95% 55%), hsl(35 100% 60%));
+      color: hsl(var(--primary-foreground));
+      font-size: 0.75rem;
+      font-weight: 600;
+      border-radius: 9999px;
+    }
+
+    .pricing-header {
+      text-align: center;
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid hsl(var(--border));
+    }
+
+    .pricing-name {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .pricing-description {
+      font-size: 0.875rem;
+      color: hsl(var(--muted-foreground));
+      margin-bottom: 1.5rem;
+    }
+
+    .pricing-price {
+      font-size: 2.5rem;
+      font-weight: 700;
+    }
+
+    .pricing-price span {
+      font-size: 1rem;
+      font-weight: 400;
+      color: hsl(var(--muted-foreground));
+    }
+
+    .pricing-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .pricing-feature {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.875rem;
+    }
+
+    .pricing-feature svg {
+      width: 1.25rem;
+      height: 1.25rem;
+      color: hsl(var(--primary));
+      flex-shrink: 0;
+    }
+
+    .pricing-btn {
+      width: 100%;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      font-weight: 500;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      text-decoration: none;
+    }
+
+    .pricing-btn.primary {
+      background: linear-gradient(135deg, hsl(25 95% 55%), hsl(35 100% 60%));
+      color: hsl(var(--primary-foreground));
+      border: none;
+      box-shadow: 0 0 30px hsl(25 95% 55% / 0.3);
+    }
+
+    .pricing-btn.primary:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+    }
+
+    .pricing-btn.secondary {
+      background: transparent;
+      border: 1px solid hsl(var(--border));
+      color: hsl(var(--foreground));
+    }
+
+    .pricing-btn.secondary:hover {
+      border-color: hsl(var(--primary));
+      color: hsl(var(--primary));
+    }
+
+    /* CTA Section */
+    .cta-section {
+      padding: 6rem 0;
+      position: relative;
+    }
+
+    .cta-card {
+      border-radius: 1.5rem;
+      padding: 4rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-gradient {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, hsl(25 95% 55% / 0.1), transparent, hsl(25 95% 55% / 0.05));
+    }
+
+    .cta-decoration-1 {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 16rem;
+      height: 16rem;
+      background: hsl(25 95% 55% / 0.2);
+      border-radius: 50%;
+      filter: blur(60px);
+      transform: translate(50%, -50%);
+    }
+
+    .cta-decoration-2 {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 12rem;
+      height: 12rem;
+      background: hsl(25 95% 55% / 0.1);
+      border-radius: 50%;
+      filter: blur(40px);
+      transform: translate(-50%, 50%);
+    }
+
+    .cta-content {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      max-width: 48rem;
+      margin: 0 auto;
+    }
+
+    .cta-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+
+    .cta-description {
+      font-size: 1.125rem;
+      color: hsl(var(--muted-foreground));
+      margin-bottom: 2.5rem;
+    }
+
+    .cta-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    @media (min-width: 640px) {
+      .cta-buttons { flex-direction: row; }
+    }
+
+    @media (min-width: 768px) {
+      .cta-card { padding: 6rem 4rem; }
+      .cta-title { font-size: 2.5rem; }
+    }
+
+    @media (min-width: 1024px) {
+      .cta-title { font-size: 3rem; }
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.75rem 2rem;
+      border-radius: 0.5rem;
+      font-weight: 500;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, hsl(25 95% 55%), hsl(35 100% 60%));
+      color: hsl(var(--primary-foreground));
+      border: none;
+      box-shadow: 0 0 30px hsl(25 95% 55% / 0.3);
+    }
+
+    .btn-primary:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid hsl(var(--border));
+      color: hsl(var(--foreground));
+    }
+
+    .btn-outline:hover {
+      border-color: hsl(var(--primary));
+      color: hsl(var(--primary));
+    }
+
+    /* Footer */
+    .footer {
+      background: hsl(220 15% 6%);
+      border-top: 1px solid hsl(var(--border) / 0.5);
+      padding: 4rem 0 2rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    @media (min-width: 768px) {
+      .footer-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (min-width: 1024px) {
+      .footer-grid { grid-template-columns: 2fr 1fr 1fr 1fr; }
+    }
+
+    .footer-brand-description {
+      color: hsl(var(--muted-foreground));
+      margin: 1rem 0;
+      max-width: 20rem;
+      font-size: 0.875rem;
+    }
+
+    .footer-socials {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .footer-social-link {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 0.5rem;
+      background: hsl(var(--secondary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: hsl(var(--muted-foreground));
+      transition: all 0.2s;
+    }
+
+    .footer-social-link:hover {
+      background: hsl(var(--primary));
+      color: hsl(var(--primary-foreground));
+    }
+
+    .footer-title {
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .footer-links a {
+      color: hsl(var(--muted-foreground));
+      text-decoration: none;
+      font-size: 0.875rem;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: hsl(var(--primary));
+    }
+
+    .footer-bottom {
+      padding-top: 2rem;
+      border-top: 1px solid hsl(var(--border) / 0.5);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      align-items: center;
+      text-align: center;
+    }
+
+    @media (min-width: 768px) {
+      .footer-bottom {
+        flex-direction: row;
+        justify-content: space-between;
+        text-align: left;
+      }
+    }
+
+    .footer-copyright {
+      color: hsl(var(--muted-foreground));
+      font-size: 0.875rem;
+    }
+
+    .footer-legal-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .footer-legal-links a {
+      color: hsl(var(--muted-foreground));
+      text-decoration: none;
+      font-size: 0.875rem;
+      transition: color 0.2s;
+    }
+
+    .footer-legal-links a:hover {
+      color: hsl(var(--primary));
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container navbar-inner">
+      <a href="/" class="logo">
+        <div class="logo-icon">3D</div>
+        <div class="logo-text">Print<span>Studio</span></div>
+      </a>
+
+      <div class="nav-links">
+        <a href="">Home</a>
+        <a href="">Products</a>
+        <a href="services.html" class="active">Services</a>
+        <a href="about.html" >About</a>
+        <a href="contact.html" >Contact</a>
+        <span></span>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 1rem;">
+        <a href="#" class="nav-cart">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="9" cy="21" r="1" />
+            <circle cx="20" cy="21" r="1" />
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+          </svg>
+        </a>
+        <button class="mobile-menu-btn">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="particles">
+      <div class="particle particle-1"></div>
+      <div class="particle particle-2"></div>
+      <div class="particle particle-3"></div>
+      <div class="dot dot-1"></div>
+      <div class="dot dot-2"></div>
+      <div class="dot dot-3"></div>
+      <div class="dot dot-4"></div>
+    </div>
+
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge animate-fade-in-up">
+          <div class="hero-badge-dot"></div>
+          <span class="hero-badge-text">Our Services</span>
+        </div>
+        <h1 class="hero-title font-display animate-fade-in-up animation-delay-200">
+          Professional <span class="text-gradient">3D Printing</span><br>Services
+        </h1>
+        <p class="hero-description animate-fade-in-up animation-delay-400">
+          From rapid prototyping to full-scale production, we offer comprehensive 
+          3D printing solutions tailored to your specific needs.
+        </p>
+      </div>
+    </div>
+    <div class="hero-gradient"></div>
+  </section>
+
+  <!-- Services Overview -->
+  <section class="services-overview">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-badge">What We Offer</span>
+        <h2 class="section-title font-display">Comprehensive <span class="text-gradient">3D Printing Solutions</span></h2>
+        <p class="section-description">
+          We provide end-to-end 3D printing services, from initial concept to final production, 
+          using the latest technology and premium materials.
+        </p>
+      </div>
+
+      <div class="services-grid">
+        <!-- Rapid Prototyping -->
+        <div class="service-card glass-card reveal">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+              <path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/>
+            </svg>
+          </div>
+          <h3 class="service-title font-display">Rapid Prototyping</h3>
+          <p class="service-description">
+            Turn your concepts into physical prototypes within 24-48 hours. Perfect for 
+            testing designs, validating ideas, and iterating quickly.
+          </p>
+          <ul class="service-features">
+            <li class="service-feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              24-48 hour turnaround
+            </li>
+            <li class="service-feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Multiple revision options
+            </li>
+            <li class="service-feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Design feedback included
+            </li>
+          </ul>
+        </div>
+
+        <!-- Custom Design -->
+        <div class="service-card glass-card reveal">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 20a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z"/>
+              <path d="M12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/>
+              <path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/>
+              <path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/>
+              <path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>
+            </svg>
+          </div>
+          <h3 class="service-title font-display">Custom Design</h3>
+          <p class="service-description">
+            Don't have a 3D model? Our expert designers will work with you to create 
+            custom designs from sketches, photos, or just your ideas.
+          </p>
+          <ul class="service-features">
+            <li class="service-feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Professional CAD modeling
+            </li>
+            <li class="service-feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Unlimited revisions
+            </li>
+            <li class="service-feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Print-ready file delivery
+            </li>
+          </ul>
+        </div>
+
+        <!-- Batch Production -->
+        <div class="service-card glass-card reveal">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+              <polyline points="3.29 7 12 12 20.71 7"/><line x1="12" x2="12" y1="22" y2="12"/>
+            </svg>
+          </div>
+          <h3 class="service-title font-display">Batch Production</h3>
+          <p class="service-description">
+            Scale your production with our batch printing services. Ideal for small 
+            to medium runs with consistent quality and competitive pricing.
+          </p>
+          <ul class="service-features">
+            <li class="service-feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Volume discounts available
+            </li>
+            <li class="service-feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Quality assurance checks
+            </li>
+            <li class="service-feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Flexible scheduling
+            </li>
+          </ul>
+        </div>
+
+        <!-- Industrial Printing -->
+        <div class="service-card glass-card reveal">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect width="18" height="18" x="3" y="3" rx="2"/>
+              <path d="M3 9h18"/><path d="M9 21V9"/>
+            </svg>
+          </div>
+          <h3 class="service-title font-display">Industrial Printing</h3>
+          <p class="service-description">
+            Large-format and high-precision printing for industrial applications, 
+            engineering parts, and specialized components.
+          </p>
+          <ul class="service-features">
+            <li class="service-feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Up to 1m³ build volume
+            </li>
+            <li class="service-feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Engineering-grade materials
+            </li>
+            <li class="service-feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Technical specifications
+            </li>
+          </ul>
+        </div>
+
+        <!-- Post-Processing -->
+        <div class="service-card glass-card reveal">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m9.06 11.9 8.07-8.06a2.85 2.85 0 1 1 4.03 4.03l-8.06 8.08"/>
+              <path d="M7.07 14.94c-1.66 0-3 1.35-3 3.02 0 1.33-2.5 1.52-2 2.02 1.08 1.1 2.49 2.02 4 2.02 2.2 0 4-1.8 4-4.04a3.01 3.01 0 0 0-3-3.02z"/>
+            </svg>
+          </div>
+          <h3 class="service-title font-display">Post-Processing</h3>
+          <p class="service-description">
+            Professional finishing services including sanding, painting, coating, 
+            and assembly for a polished final product.
+          </p>
+          <ul class="service-features">
+            <li class="service-feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Surface smoothing
+            </li>
+            <li class="service-feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Custom painting & coating
+            </li>
+            <li class="service-feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Assembly services
+            </li>
+          </ul>
+        </div>
+
+        <!-- Consultation -->
+        <div class="service-card glass-card reveal">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+            </svg>
+          </div>
+          <h3 class="service-title font-display">Consultation</h3>
+          <p class="service-description">
+            Expert guidance on material selection, design optimization, and 
+            production strategies to maximize your project's success.
+          </p>
+          <ul class="service-features">
+            <li class="service-feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Material recommendations
+            </li>
+            <li class="service-feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Design for manufacturing
+            </li>
+            <li class="service-feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Cost optimization
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process Section -->
+  <section class="process-section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-badge">How It Works</span>
+        <h2 class="section-title font-display">Our <span class="text-gradient">Simple Process</span></h2>
+        <p class="section-description">
+          From concept to creation, we make 3D printing easy and accessible.
+        </p>
+      </div>
+
+      <div class="process-grid">
+        <div class="process-card reveal">
+          <div class="process-number font-display">1</div>
+          <h3 class="process-title font-display">Submit Your Design</h3>
+          <p class="process-description">
+            Upload your 3D files or share your concept. We accept STL, OBJ, STEP, and other common formats.
+          </p>
+          <div class="process-arrow">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="process-card reveal">
+          <div class="process-number font-display">2</div>
+          <h3 class="process-title font-display">Get a Quote</h3>
+          <p class="process-description">
+            Receive a detailed quote within 24 hours, including material options and production timeline.
+          </p>
+          <div class="process-arrow">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="process-card reveal">
+          <div class="process-number font-display">3</div>
+          <h3 class="process-title font-display">Production</h3>
+          <p class="process-description">
+            We print and quality-check your parts using our state-of-the-art equipment and expertise.
+          </p>
+          <div class="process-arrow">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="process-card reveal">
+          <div class="process-number font-display">4</div>
+          <h3 class="process-title font-display">Delivery</h3>
+          <p class="process-description">
+            Your finished products are carefully packaged and shipped directly to your door.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Materials Section -->
+  <section class="materials-section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-badge">Materials</span>
+        <h2 class="section-title font-display">Premium <span class="text-gradient">Material Options</span></h2>
+        <p class="section-description">
+          Choose from our wide range of high-quality materials to match your project requirements.
+        </p>
+      </div>
+
+      <div class="materials-grid">
+        <div class="material-card glass-card reveal-scale">
+          <div class="material-icon">🔷</div>
+          <h3 class="material-name font-display">PLA</h3>
+          <p class="material-description">Eco-friendly, great for prototypes and decorative items</p>
+        </div>
+
+        <div class="material-card glass-card reveal-scale">
+          <div class="material-icon">⚡</div>
+          <h3 class="material-name font-display">ABS</h3>
+          <p class="material-description">Durable and heat-resistant, ideal for functional parts</p>
+        </div>
+
+        <div class="material-card glass-card reveal-scale">
+          <div class="material-icon">💎</div>
+          <h3 class="material-name font-display">Resin</h3>
+          <p class="material-description">High detail and smooth finish for intricate designs</p>
+        </div>
+
+        <div class="material-card glass-card reveal-scale">
+          <div class="material-icon">🔩</div>
+          <h3 class="material-name font-display">PETG</h3>
+          <p class="material-description">Strong and flexible, perfect for mechanical parts</p>
+        </div>
+
+        <div class="material-card glass-card reveal-scale">
+          <div class="material-icon">🛡️</div>
+          <h3 class="material-name font-display">Nylon</h3>
+          <p class="material-description">Exceptional strength and wear resistance</p>
+        </div>
+
+        <div class="material-card glass-card reveal-scale">
+          <div class="material-icon">🌡️</div>
+          <h3 class="material-name font-display">TPU</h3>
+          <p class="material-description">Flexible and rubber-like for soft components</p>
+        </div>
+
+        <div class="material-card glass-card reveal-scale">
+          <div class="material-icon">✨</div>
+          <h3 class="material-name font-display">Carbon Fiber</h3>
+          <p class="material-description">Lightweight yet incredibly strong composite</p>
+        </div>
+
+        <div class="material-card glass-card reveal-scale">
+          <div class="material-icon">🔧</div>
+          <h3 class="material-name font-display">Metal</h3>
+          <p class="material-description">Stainless steel and aluminum for industrial use</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section class="pricing-section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-badge">Pricing</span>
+        <h2 class="section-title font-display">Transparent <span class="text-gradient">Pricing Plans</span></h2>
+        <p class="section-description">
+          Choose the plan that best fits your needs. All plans include quality assurance and support.
+        </p>
+      </div>
+
+      <div class="pricing-grid">
+        <!-- Starter Plan -->
+        <div class="pricing-card glass-card reveal">
+          <div class="pricing-header">
+            <h3 class="pricing-name font-display">Starter</h3>
+            <p class="pricing-description">Perfect for individuals and small projects</p>
+            <div class="pricing-price font-display">$29<span>/project</span></div>
+          </div>
+          <ul class="pricing-features">
+            <li class="pricing-feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Up to 100g material
+            </li>
+            <li class="pricing-feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Standard resolution
+            </li>
+            <li class="pricing-feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              5-7 day turnaround
+            </li>
+            <li class="pricing-feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Email support
+            </li>
+          </ul>
+          <a href="/contact.html" class="pricing-btn secondary">Get Started</a>
+        </div>
+
+        <!-- Professional Plan -->
+        <div class="pricing-card glass-card featured reveal">
+          <span class="pricing-badge">Most Popular</span>
+          <div class="pricing-header">
+            <h3 class="pricing-name font-display">Professional</h3>
+            <p class="pricing-description">Ideal for businesses and regular users</p>
+            <div class="pricing-price font-display">$79<span>/project</span></div>
+          </div>
+          <ul class="pricing-features">
+            <li class="pricing-feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Up to 500g material
+            </li>
+            <li class="pricing-feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              High resolution printing
+            </li>
+            <li class="pricing-feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              3-5 day turnaround
+            </li>
+            <li class="pricing-feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Priority support
+            </li>
+            <li class="pricing-feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              1 free revision
+            </li>
+          </ul>
+          <a href="/contact.html" class="pricing-btn primary">Get Started</a>
+        </div>
+
+        <!-- Enterprise Plan -->
+        <div class="pricing-card glass-card reveal">
+          <div class="pricing-header">
+            <h3 class="pricing-name font-display">Enterprise</h3>
+            <p class="pricing-description">For large-scale and ongoing projects</p>
+            <div class="pricing-price font-display">Custom</div>
+          </div>
+          <ul class="pricing-features">
+            <li class="pricing-feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Unlimited material
+            </li>
+            <li class="pricing-feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Industrial-grade quality
+            </li>
+            <li class="pricing-feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Express turnaround
+            </li>
+            <li class="pricing-feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Dedicated account manager
+            </li>
+            <li class="pricing-feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Volume discounts
+            </li>
+          </ul>
+          <a href="/contact.html" class="pricing-btn secondary">Contact Us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-card glass-card reveal-scale">
+        <div class="cta-gradient"></div>
+        <div class="cta-decoration-1"></div>
+        <div class="cta-decoration-2"></div>
+        
+        <div class="cta-content">
+          <h2 class="cta-title font-display">
+            Ready to Start Your <span class="text-gradient">Project?</span>
+          </h2>
+          <p class="cta-description">
+            Get a free quote today and see how we can bring your ideas to life with 
+            precision 3D printing technology.
+          </p>
+          <div class="cta-buttons">
+            <a href="/contact.html" class="btn btn-primary">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+              </svg>
+              Get Free Quote
+            </a>
+            <a href="/about.html" class="btn btn-outline">
+              Learn About Us
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a href="/" class="logo">
+            <div class="logo-icon font-display">3D</div>
+            <span class="logo-text font-display">Print<span>Studio</span></span>
+          </a>
+          <p class="footer-brand-description">
+            Transforming ideas into reality with cutting-edge 3D printing technology. 
+            Quality, precision, and innovation in every print.
+          </p>
+          <div class="footer-socials">
+            <a href="#" class="footer-social-link">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+              </svg>
+            </a>
+            <a href="#" class="footer-social-link">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+              </svg>
+            </a>
+            <a href="#" class="footer-social-link">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+              </svg>
+            </a>
+            <a href="#" class="footer-social-link">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="footer-title font-display">Services</h4>
+          <ul class="footer-links">
+            <li><a href="/services.html">Rapid Prototyping</a></li>
+            <li><a href="/services.html">Custom Design</a></li>
+            <li><a href="/services.html">Batch Production</a></li>
+            <li><a href="/services.html">Industrial Printing</a></li>
+            <li><a href="/services.html">Post-Processing</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-title font-display">Company</h4>
+          <ul class="footer-links">
+            <li><a href="/about.html">About Us</a></li>
+            <li><a href="/contact.html">Contact</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Press</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-title font-display">Support</h4>
+          <ul class="footer-links">
+            <li><a href="#">Help Center</a></li>
+            <li><a href="#">File Guidelines</a></li>
+            <li><a href="#">Material Guide</a></li>
+            <li><a href="#">Shipping Info</a></li>
+            <li><a href="/contact.html">Get a Quote</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-copyright">© 2024 3D PrintStudio. All rights reserved.</p>
+        <div class="footer-legal-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Cookie Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile Menu Toggle
+   const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const navLinks = document.querySelector('.nav-links');
+
+    if (mobileMenuBtn) {
+      mobileMenuBtn.addEventListener('click', () => {
+       navLinks.classList.toggle('active');
+        if (navLinks.style.display === 'flex') {
+          navLinks.style.display = 'none';
+        } else {
+          navLinks.style.display = 'flex';
+          navLinks.style.flexDirection = 'column';
+          navLinks.style.position = 'absolute';
+          navLinks.style.top = '64px';
+          navLinks.style.left = '0';
+          navLinks.style.right = '0';
+          navLinks.style.background = 'var(--background)';
+          navLinks.style.padding = '1rem';
+          navLinks.style.borderBottom = '1px solid var(--border)';
+        }
+      });
+    }
+    
+    // Scroll reveal animation
+    function reveal() {
+      const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+      
+      reveals.forEach((element, index) => {
+        const windowHeight = window.innerHeight;
+        const elementTop = element.getBoundingClientRect().top;
+        const elementVisible = 150;
+        
+        if (elementTop < windowHeight - elementVisible) {
+          setTimeout(() => {
+            element.classList.add('active');
+          }, index * 100);
+        }
+      });
+    }
+
+    window.addEventListener('scroll', reveal);
+    window.addEventListener('load', reveal);
+  </script>
+  <script>
+  const links = document.querySelectorAll(".nav-links a");
+  const indicator = document.querySelector(".nav-links span");
+
+  // Find the initial active link
+  let activeLink = document.querySelector(".nav-links a.active") || links[0];
+
+  function moveIndicator(el) {
+    const rect = el.getBoundingClientRect();
+    const parentRect = el.parentElement.getBoundingClientRect();
+    indicator.style.width = rect.width + "px";
+    indicator.style.transform = `translateX(${rect.left - parentRect.left}px)`;
+  }
+
+  // Set indicator on page load
+  moveIndicator(activeLink);
+
+  // Hover effect
+  links.forEach(link => {
+    link.addEventListener("mouseenter", () => moveIndicator(link));
+    link.addEventListener("mouseleave", () => moveIndicator(activeLink));
+    link.addEventListener("click", (e) => {
+      activeLink.classList.remove("active");
+      link.classList.add("active");
+      activeLink = link;
+      moveIndicator(activeLink);
+    });
+  });
+
+  // Optional: update indicator on window resize
+  window.addEventListener("resize", () => moveIndicator(activeLink));
+</script>
+
+  
+</body>
+</html>
