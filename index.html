@@ -1284,11 +1284,11 @@
       </a>
 
       <div class="nav-links">
-        <a href="/">Home</a>
-        <a href="/products">Products</a>
-        <a href="/services">Services</a>
-        <a href="/about" class="active">About</a>
-        <a href="/contact">Contact</a>
+        <a href="">Home</a>
+        <a href="">Products</a>
+        <a href="services.html">Services</a>
+        <a href="" class="active">About</a>
+        <a href="contact.html" >Contact</a>
         <span></span>
       </div>
 
@@ -1892,35 +1892,6 @@
   const links = document.querySelectorAll(".nav-links a");
   const indicator = document.querySelector(".nav-links span");
 
-  let activeLink = document.querySelector(".nav-links a.active") || links[0];
-
-  function moveIndicator(el) {
-    const rect = el.getBoundingClientRect();
-    const parentRect = el.parentElement.getBoundingClientRect();
-    indicator.style.width = rect.width + "px";
-    indicator.style.transform = `translateX(${rect.left - parentRect.left}px)`;
-  }
-
-  // Set indicator on page load
-  moveIndicator(activeLink);
-
-  // Hover effect
-  links.forEach(link => {
-    link.addEventListener("mouseenter", () => moveIndicator(link));
-    link.addEventListener("mouseleave", () => moveIndicator(activeLink)); // back to active
-    link.addEventListener("click", (e) => {
-      e.preventDefault(); // remove this line if you actually want to navigate
-      activeLink.classList.remove("active");
-      link.classList.add("active");
-      activeLink = link;
-      moveIndicator(activeLink);
-    });
-  });
-</script>
-<script>
-  const links = document.querySelectorAll(".nav-links a");
-  const indicator = document.querySelector(".nav-links span");
-
   // Find the initial active link
   let activeLink = document.querySelector(".nav-links a.active") || links[0];
 
@@ -1948,6 +1919,41 @@
 
   // Optional: update indicator on window resize
   window.addEventListener("resize", () => moveIndicator(activeLink));
+</script>
+
+
+
+<script>
+  const links1 = document.querySelectorAll(".nav-links a");
+  const indicator1 = document.querySelector(".nav-links span");
+
+  // Find the initial active link
+  let activeLink1 = document.querySelector(".nav-links a.active") || links1[0];
+
+  function moveIndicator(el) {
+    const rect = el.getBoundingClientRect();
+    const parentRect = el.parentElement.getBoundingClientRect();
+    indicator1.style.width = rect.width + "px";
+    indicator1.style.transform = `translateX(${rect.left - parentRect.left}px)`;
+  }
+
+  // Set indicator on page load
+  moveIndicator(activeLink1);
+
+  // Hover effect
+  links1.forEach(link => {
+    link.addEventListener("mouseenter", () => moveIndicator(link));
+    link.addEventListener("mouseleave", () => moveIndicator(activeLink));
+    link.addEventListener("click", (e) => {
+      activeLink1.classList.remove("active");
+      link.classList.add("active");
+      activeLink1 = link;
+      moveIndicator(activeLink1);
+    });
+  });
+
+  // Optional: update indicator on window resize
+  window.addEventListener("resize", () => moveIndicator(activeLink1));
 </script>
 
 
