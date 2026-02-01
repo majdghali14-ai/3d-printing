@@ -20,6 +20,11 @@
     }
 
     :root {
+            --primary-foregroundd: 60 10% 98%;
+      --secondaryy: 220 15% 18%;
+
+      --primaryy: 25 95% 55%;
+      --borderr: 220 15% 20%;
       --background: #0a0f1a;
       --foreground: #f8fafc;
       --card: #111827;
@@ -31,6 +36,8 @@
       --muted-foreground: #94a3b8;
       --border: #1e3a5f;
       --radius: 0.75rem;
+      --muted-foregroundd: 220 10% 60%;
+      
     }
 
     html {
@@ -287,7 +294,7 @@
     }
 
     .logo-text span {
-      color: var(--primary);
+      color:  #f97316;
     }
 
 
@@ -359,6 +366,7 @@
 
     @media (min-width: 1025px) and (max-width: 1440px) {
       .nav-links {
+        display: none;
         position: relative;
         width: 530px;
         background: #1a1d224d;
@@ -401,6 +409,7 @@
 
     @media (min-width: 1025px) and (max-width: 1440px) {
       .nav-links {
+        display: none;
         position: relative;
         width: 530px;
         background: #1a1d224d;
@@ -412,7 +421,7 @@
         overflow: hidden;
 
         /* Shadow for depth */
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 18px 35px rgba(0, 0, 0, 0.45);
       }
 
       .nav-links a {
@@ -442,6 +451,26 @@
     }
 
    @media (max-width: 768px) {
+    .navbar {
+  perspective: 1000px;
+}
+.nav-links {
+    visibility: hidden;
+  }
+.navbar {
+  background: #0a0f1a;
+  backdrop-filter:  20px;
+  /* -webkit-backdrop-filter: none; */
+}
+.navbar {
+  background: #0a0f1a;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+  .nav-links.active {
+    visibility: visible;
+  }
   .nav-links {
     position: absolute;
     top: 100%;
@@ -449,8 +478,9 @@
     right: 0;
 
     /* EXACT navbar background */
-    background: rgba(10, 15, 26, 0.8);
-    backdrop-filter: blur(20px);
+background: rgba(10, 15, 26, 0.7); /* semi-transparent for blur effect */
+    backdrop-filter: blur(20px);       /* blur added */
+    -webkit-backdrop-filter: blur(20px);
     border-bottom: 1px solid rgba(30, 58, 95, 0.5);
 
     display: flex;
@@ -470,12 +500,14 @@
     z-index: 999;
   }
 
-  /* Open state */
+   /* Open state */
   .nav-links.active {
     transform: rotateX(0deg);
     opacity: 1;
     pointer-events: auto;
   }
+
+  
 
   /* Mobile links */
   .nav-links a {
@@ -503,23 +535,35 @@
     display: block;
   }
 }
-    /* Floating Particles */
-    /* Floating Particles */
-    .particles-container {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      overflow: hidden;
-      z-index: 0;
-    }
-    .particle {
-      position: absolute;
-      width: 4px;
-      height: 4px;
-      background: hsl(var(--primary));
-      border-radius: 50%;
-      opacity: 0.3;
-    }
+    /* Particles container covers full page */
+.particles-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: -1; /* behind all content */
+  background: #0a0f1a; /* dark background, change as needed */
+}
+
+/* Each particle */
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.3;
+  background: #f97316; /* primary color */
+  pointer-events: none;
+  animation-name: floatParticle;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
+/* Particle float animation */
+@keyframes floatParticle {
+  0% { transform: translateY(0) translateX(0) scale(1); opacity: 0.3; }
+  50% { transform: translateY(-30px) translateX(20px) scale(1.3); opacity: 0.6; }
+  100% { transform: translateY(0) translateX(0) scale(1); opacity: 0.3; }
+}
+
 
     /* Hero Section */
     .hero {
@@ -531,6 +575,21 @@
       overflow: hidden;
       padding-top: 80px;
     }
+    .hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150%;
+  height: 100%;
+  background: radial-gradient(
+    ellipse at center top,
+    hsla(25, 95%, 55%, 0.15) 0%,
+    transparent 60%
+  );
+  pointer-events: none;
+}
 
     .hero-content {
       text-align: center;
@@ -1103,95 +1162,124 @@
     }
 
     /* Footer */
+    /* Footer */
     .footer {
-      background: var(--card);
-      border-top: 1px solid var(--border);
+      border-top: 1px solid hsl(var(--borderr));
       padding: 4rem 0 2rem;
+      position: relative;
+      z-index: 10;
     }
 
     .footer-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 3rem;
       margin-bottom: 3rem;
     }
 
+    @media (min-width: 640px) {
+      .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .footer-grid {
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+      }
+    }
+
     .footer-brand p {
-      color: var(--muted-foreground);
-      font-size: 0.875rem;
-      margin: 1.5rem 0;
-      line-height: 1.7;
+      color: hsl(var(--muted-foregroundd));
+      font-size: 0.9375rem;
+      margin-top: 1rem;
+      max-width: 20rem;
     }
 
-    .footer-socials {
-      display: flex;
-      gap: 1rem;
-    }
-
-    .footer-social {
-      width: 40px;
-      height: 40px;
-      border-radius: 8px;
-      background: var(--secondary);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s;
-      color: var(--foreground);
-    }
-
-    .footer-social:hover {
-      background: var(--primary);
-      color: white;
-    }
-
-    .footer-section h3 {
+    .footer-column h4 {
       font-weight: 600;
-      margin-bottom: 1.5rem;
-      font-family: 'Space Grotesk', sans-serif;
+      margin-bottom: 1rem;
     }
 
-    .footer-section ul {
+    .footer-links {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 1rem;
-    }
-
-    .footer-section a,
-    .footer-section span {
-      color: var(--muted-foreground);
-      font-size: 0.875rem;
-      transition: color 0.3s;
-    }
-
-    .footer-section a:hover {
-      color: var(--primary);
-    }
-
-    .footer-contact-item {
-      display: flex;
-      align-items: flex-start;
       gap: 0.75rem;
     }
 
-    .footer-contact-item svg {
-      width: 20px;
-      height: 20px;
-      color: var(--primary);
-      flex-shrink: 0;
-      margin-top: 2px;
+    .footer-links a {
+      color: hsl(var(--muted-foregroundd));
+      text-decoration: none;
+      font-size: 0.9375rem;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: hsl(var(--primaryy));
     }
 
     .footer-bottom {
-      border-top: 1px solid var(--border);
       padding-top: 2rem;
+      border-top: 1px solid hsl(var(--borderr));
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      align-items: center;
       text-align: center;
     }
 
+    @media (min-width: 768px) {
+      .footer-bottom {
+        flex-direction: row;
+        justify-content: space-between;
+        text-align: left;
+      }
+    }
+
     .footer-bottom p {
-      color: var(--muted-foreground);
+      color: hsl(var(--muted-foregroundd));
       font-size: 0.875rem;
+    }
+
+/* Social Links */
+    .social-section {
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid hsla(220, 15%, 20%, 0.5);
+    }
+
+    .social-title {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: hsl(var(--muted-foregroundd));
+      margin-bottom: 1rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .social-link {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 0.5rem;
+      background: hsl(var(--secondaryy));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: hsl(var(--muted-foregroundd));
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .social-link:hover {
+      background: hsl(var(--primaryy));
+      color: hsl(var(--primary-foregroundd));
+    }
+
+    .social-link svg {
+      width: 1.25rem;
+      height: 1.25rem;
     }
 
     /* SVG Icons */
@@ -1209,6 +1297,8 @@
 </head>
 
 <body>
+  <div id="particles" class="particles-container"></div>
+
   <!-- Navbar -->
   <nav class="navbar">
     <div class="container navbar-inner">
@@ -1248,14 +1338,7 @@
 
   <!-- Hero Section -->
   <section class="hero">
-    <div class="particles">
-      <div class="particle particle-1 animate-pulse-glow"></div>
-      <div class="particle particle-2 animate-pulse-glow delay-400"></div>
-      <div class="particle particle-3 animate-float"></div>
-      <div class="dot dot-1 animate-float"></div>
-      <div class="dot dot-2 animate-float delay-200"></div>
-      <div class="dot dot-3 animate-float delay-400"></div>
-    </div>
+    
 
     <div class="container hero-content">
       <div class="hero-badge animate-fade-in-up">
@@ -1657,97 +1740,98 @@
       <div class="footer-grid">
         <div class="footer-brand">
           <a href="/" class="logo">
-            <div class="logo-icon">3D</div>
-            <div class="logo-text">Print<span>Studio</span></div>
+            <div class="logo-icon bg-gradient-primary font-display">3D</div>
+            <span class="logo-text font-display">Print<span>Studio</span></span>
           </a>
-          <p>Transforming ideas into reality through precision 3D printing. From prototypes to production-ready parts.
-          </p>
-          <div class="footer-socials">
-            <a href="#" class="footer-social">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-              </svg>
-            </a>
-            <a href="#" class="footer-social">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path
-                  d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z" />
-              </svg>
-            </a>
-            <a href="#" class="footer-social">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-              </svg>
-            </a>
-            <a href="#" class="footer-social">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-                <rect x="2" y="9" width="4" height="12" />
-                <circle cx="4" cy="4" r="2" />
-              </svg>
-            </a>
-          </div>
+          <p>Transforming ideas into reality through precision 3D printing and innovative design solutions.</p>
         </div>
-
-        <div class="footer-section">
-          <h3>Quick Links</h3>
-          <ul>
+        
+        <div class="footer-column">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
             <li><a href="/">Home</a></li>
             <li><a href="/products">Products</a></li>
             <li><a href="/services">Services</a></li>
-            <li><a href="/about">About</a></li>
-            <li><a href="/contact">Contact</a></li>
+            <li><a href="/about.html">About Us</a></li>
+            <li><a href="/contact.html">Contact</a></li>
           </ul>
         </div>
-
-        <div class="footer-section">
-          <h3>Services</h3>
-          <ul>
-            <li><span>Custom Printing</span></li>
-            <li><span>Prototyping</span></li>
-            <li><span>Small Batch Production</span></li>
-            <li><span>Design Services</span></li>
-            <li><span>Material Selection</span></li>
+        
+        <div class="footer-column">
+          <h4>Services</h4>
+          <ul class="footer-links">
+            <li><a href="#">Rapid Prototyping</a></li>
+            <li><a href="#">Custom Design</a></li>
+            <li><a href="#">Small Batch Production</a></li>
+            <li><a href="#">3D Scanning</a></li>
+            <li><a href="#">Consultation</a></li>
           </ul>
         </div>
-
-        <div class="footer-section">
-          <h3>Contact Us</h3>
-          <ul>
-            <li class="footer-contact-item">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                <circle cx="12" cy="10" r="3" />
-              </svg>
-              <span>123 Innovation Drive<br>Tech City, TC 12345</span>
-            </li>
-            <li class="footer-contact-item">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path
-                  d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-              </svg>
-              <span>+1 (555) 123-4567</span>
-            </li>
-            <li class="footer-contact-item">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                <polyline points="22,6 12,13 2,6" />
-              </svg>
-              <span>hello@3dprintstudio.com</span>
-            </li>
+        
+        <div class="footer-column">
+          <h4>Support</h4>
+          <ul class="footer-links">
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Shipping Info</a></li>
+            <li><a href="#">Return Policy</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
           </ul>
         </div>
       </div>
-
+      
       <div class="footer-bottom">
-        <p>© 2026 3D PrintStudio. All rights reserved.</p>
+        <p>&copy; 2024 3D PrintStudio. All rights reserved.</p>
+        <div class="social-links">
+          <a href="#" class="social-link" aria-label="Twitter">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
+            </svg>
+          </a>
+          <a href="#" class="social-link" aria-label="Instagram">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+              <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+            </svg>
+          </a>
+          <a href="#" class="social-link" aria-label="LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+              <rect width="4" height="12" x="2" y="9"></rect>
+              <circle cx="4" cy="4" r="2"></circle>
+            </svg>
+          </a>
+        </div>
       </div>
     </div>
   </footer>
-
   <script>
+    
+const particlesContainer = document.getElementById('particles');
+const particleCount = 50; // adjust as needed
+
+for (let i = 0; i < particleCount; i++) {
+  const particle = document.createElement('div');
+  particle.className = 'particle';
+
+  // Random position
+  particle.style.left = Math.random() * 100 + '%';
+  particle.style.top = Math.random() * 100 + '%';
+
+  // Random size
+  const size = Math.random() * 4 + 2;
+  particle.style.width = size + 'px';
+  particle.style.height = size + 'px';
+
+  // Random animation duration and delay
+  particle.style.animationDuration = (Math.random() * 6 + 4) + 's';
+  particle.style.animationDelay = (Math.random() * 6) + 's';
+
+  // Append to container
+  particlesContainer.appendChild(particle);
+}
+
 
 
     // Intersection Observer for scroll animations
@@ -1802,61 +1886,65 @@
 
   mobileMenuBtn.addEventListener('click', () => {
     navLinks.classList.toggle('active');
+    mobileMenuBtn.classList.toggle('active');
   });
 </script>
 
+
 <script>
-  const links = document.querySelectorAll(".nav-links a");
-  const indicator = document.querySelector(".nav-links span");
-  // Find the initial active link
-  let activeLink = document.querySelector(".nav-links a.active") || links[0];
-  function moveIndicator(el) {
-    const rect = el.getBoundingClientRect();
-    const parentRect = el.parentElement.getBoundingClientRect();
-    indicator.style.width = rect.width + "px";
-    indicator.style.transform = `translateX(${rect.left - parentRect.left}px)`;
+const links = document.querySelectorAll(".nav-links a");
+const indicator = document.querySelector(".nav-links span");
+
+// Find initial active link
+let activeLink = document.querySelector(".nav-links a.active") || links[0];
+
+// Function to move the indicator under a link
+function moveIndicator(link) {
+  // Only show on desktop
+  if (window.innerWidth <= 1024) {
+    indicator.style.width = "0px";
+    return;
   }
-  // Set indicator on page load
+
+  const linkRect = link.getBoundingClientRect();
+  const parentRect = link.parentElement.getBoundingClientRect();
+
+  indicator.style.width = `${linkRect.width}px`;
+  indicator.style.transform = `translateX(${linkRect.left - parentRect.left}px)`;
+}
+
+// Initialize indicator on page load without animation
+indicator.style.transition = "none";
+window.addEventListener("DOMContentLoaded", () => {
   moveIndicator(activeLink);
-  //Hover effect
-  links.forEach(link => {
-    link.addEventListener("mouseenter", () => moveIndicator(link));
-    link.addEventListener("mouseleave", () => moveIndicator(activeLink));
-    link.addEventListener("click", (e) => {
-      activeLink.classList.remove("active");
-      link.classList.add("active");
-      activeLink = link;
-      moveIndicator(activeLink);
-    });
+
+  // Re-enable transition for hover/click
+  requestAnimationFrame(() => {
+    indicator.style.transition = "transform 0.3s ease, width 0.3s ease";
   });
-  // Optional: update indicator on window resize
-  window.addEventListener("resize", () => moveIndicator(activeLink));
-</script>
-<script>
-  const links1 = document.querySelectorAll(".nav-links a");
-  const indicator1 = document.querySelector(".nav-links span");
-  // Find the initial active link
-  let activeLink1 = document.querySelector(".nav-links a.active") || links1[0];
-  function moveIndicator(el) {
-    const rect = el.getBoundingClientRect();
-    const parentRect = el.parentElement.getBoundingClientRect();
-    indicator1.style.width = rect.width + "px";
-    indicator1.style.transform = `translateX(${rect.left - parentRect.left}px)`;
-  }
-  // Set indicator on page load
-  moveIndicator(activeLink1);
-  // Hover effect
-  links1.forEach(link => {
-    link.addEventListener("mouseenter", () => moveIndicator(link));
-    link.addEventListener("mouseleave", () => moveIndicator(activeLink));
-    link.addEventListener("click", (e) => {
-      activeLink1.classList.remove("active");
-      link.classList.add("active");
-      activeLink1 = link;
-      moveIndicator(activeLink1);
-    });
+});
+
+// Hover effect
+links.forEach(link => {
+  link.addEventListener("mouseenter", () => moveIndicator(link));
+  link.addEventListener("mouseleave", () => moveIndicator(activeLink));
+
+  // Click event
+  link.addEventListener("click", () => {
+    activeLink.classList.remove("active");
+    link.classList.add("active");
+    activeLink = link;
+    moveIndicator(activeLink);
+    // Link will navigate normally
   });
-  // Optional: update indicator on window resize
-  window.addEventListener("resize", () => moveIndicator(activeLink1));
+});
+
+// Recalculate indicator on window resize
+window.addEventListener("resize", () => {
+  moveIndicator(activeLink);
+});
 </script>
+
+
+
 </html>
