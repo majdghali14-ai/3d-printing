@@ -260,6 +260,7 @@
 
     @media (min-width: 1025px) and (max-width: 1440px) {
       .nav-links {
+        display: none;
         position: relative;
         width: 530px;
         background: #1a1d224d;
@@ -300,8 +301,9 @@
       }
     }
 
-    @media (min-width: 1025px) and (max-width: 1440px) {
+    @media (min-width: 850px) and (max-width: 1025px) {
       .nav-links {
+        display: none;
         position: relative;
         width: 530px;
         background: #1a1d224d;
@@ -313,7 +315,7 @@
         overflow: hidden;
 
         /* Shadow for depth */
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 18px 35px rgba(0, 0, 0, 0.45);
       }
 
       .nav-links a {
@@ -342,8 +344,7 @@
       }
     }
 
-   
-  @media (max-width: 768px) {
+   @media (max-width: 850px) {
     .navbar {
   perspective: 1000px;
 }
@@ -408,8 +409,6 @@ background: rgba(10, 15, 26, 0.7); /* semi-transparent for blur effect */
     border-radius: 12px;
     font-size: 1rem;
     font-weight: 500;
-    color: #fff;
-        text-decoration: none;
   }
 
   .nav-links a:hover {
@@ -1553,34 +1552,42 @@ for (let i = 0; i < particleCount; i++) {
   <script>
 const links = document.querySelectorAll(".nav-links a");
 const indicator = document.querySelector(".nav-links span");
+
+// Find initial active link
 let activeLink = document.querySelector(".nav-links a.active") || links[0];
 
+// Function to move the indicator under a link
 function moveIndicator(link) {
+  // Only show on desktop
+  if (window.innerWidth <= 850) {
+    indicator.style.width = "0px";
+    return;
+  }
+
   const linkRect = link.getBoundingClientRect();
   const parentRect = link.parentElement.getBoundingClientRect();
-  indicator.style.width = linkRect.width + "px";
+
+  indicator.style.width = `${linkRect.width}px`;
   indicator.style.transform = `translateX(${linkRect.left - parentRect.left}px)`;
 }
 
-// 1️⃣ Disable transition on page load
+// Initialize indicator on page load without animation
 indicator.style.transition = "none";
-
-// 2️⃣ Set indicator position immediately under active link
 window.addEventListener("DOMContentLoaded", () => {
   moveIndicator(activeLink);
 
-  // 3️⃣ Re-enable transition for future hover/click
+  // Re-enable transition for hover/click
   requestAnimationFrame(() => {
     indicator.style.transition = "transform 0.3s ease, width 0.3s ease";
   });
 });
 
-// Hover (optional)
+// Hover effect
 links.forEach(link => {
   link.addEventListener("mouseenter", () => moveIndicator(link));
   link.addEventListener("mouseleave", () => moveIndicator(activeLink));
 
-  // Click
+  // Click event
   link.addEventListener("click", () => {
     activeLink.classList.remove("active");
     link.classList.add("active");
@@ -1590,12 +1597,13 @@ links.forEach(link => {
   });
 });
 
-// Update on window resize
-window.addEventListener("resize", () => moveIndicator(activeLink));
+// Recalculate indicator on window resize
+window.addEventListener("resize", () => {
+  moveIndicator(activeLink);
+});
 </script>
 
 
 
 </body>
 </html>
-
