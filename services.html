@@ -354,8 +354,9 @@
       background:  #1e293b;
     }
 
-    @media (min-width: 1025px) and (max-width: 1440px) {
+   @media (min-width: 1025px) and (max-width: 1440px) {
       .nav-links {
+        display: none;
         position: relative;
         width: 530px;
         background: #1a1d224d;
@@ -396,8 +397,9 @@
       }
     }
 
-    @media (min-width: 1025px) and (max-width: 1440px) {
+    @media (min-width: 850px) and (max-width: 1025px) {
       .nav-links {
+        display: none;
         position: relative;
         width: 530px;
         background: #1a1d224d;
@@ -409,7 +411,7 @@
         overflow: hidden;
 
         /* Shadow for depth */
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 18px 35px rgba(0, 0, 0, 0.45);
       }
 
       .nav-links a {
@@ -438,8 +440,7 @@
       }
     }
 
-   
-  @media (max-width: 768px) {
+   @media (max-width: 850px) {
     .navbar {
   perspective: 1000px;
 }
@@ -504,9 +505,6 @@ background: rgba(10, 15, 26, 0.7); /* semi-transparent for blur effect */
     border-radius: 12px;
     font-size: 1rem;
     font-weight: 500;
-        color: #fff;
-        text-decoration: none;
-
   }
 
   .nav-links a:hover {
@@ -1879,86 +1877,44 @@ background: rgba(10, 15, 26, 0.7); /* semi-transparent for blur effect */
 </script>
  
   <script>
-     // Select all elements with reveal classes
-const reveals = document.querySelectorAll(".reveal, .reveal-left, .reveal-right, .reveal-scale");
-
-function revealOnScroll() {
-  const windowHeight = window.innerHeight;
-
-  reveals.forEach((el) => {
-    const elementTop = el.getBoundingClientRect().top;
-    const elementVisible = 150; // trigger before element fully in view
-
-    if (elementTop < windowHeight - elementVisible) {
-      // Add a small stagger delay for each element
-      const delay = el.dataset.delay || 0; // optional: set delay via HTML
-      setTimeout(() => {
-        el.classList.add("active");
-      }, delay);
-    } else {
-      el.classList.remove("active");
-    }
-  });
-}
-
-// Trigger on scroll and on page load
-window.addEventListener("scroll", revealOnScroll);
-revealOnScroll();
-
-
-    const particlesContainer = document.getElementById('particles');
-const particleCount = 50; // adjust as needed
-
-for (let i = 0; i < particleCount; i++) {
-  const particle = document.createElement('div');
-  particle.className = 'particle';
-
-  // Random position
-  particle.style.left = Math.random() * 100 + '%';
-  particle.style.top = Math.random() * 100 + '%';
-
-  // Random size
-  const size = Math.random() * 4 + 2;
-  particle.style.width = size + 'px';
-  particle.style.height = size + 'px';
-
-  // Random animation duration and delay
-  particle.style.animationDuration = (Math.random() * 6 + 4) + 's';
-  particle.style.animationDelay = (Math.random() * 6) + 's';
-
-  // Append to container
-  particlesContainer.appendChild(particle);
-}
 const links = document.querySelectorAll(".nav-links a");
 const indicator = document.querySelector(".nav-links span");
+
+// Find initial active link
 let activeLink = document.querySelector(".nav-links a.active") || links[0];
 
+// Function to move the indicator under a link
 function moveIndicator(link) {
+  // Only show on desktop
+  if (window.innerWidth <= 850) {
+    indicator.style.width = "0px";
+    return;
+  }
+
   const linkRect = link.getBoundingClientRect();
   const parentRect = link.parentElement.getBoundingClientRect();
-  indicator.style.width = linkRect.width + "px";
+
+  indicator.style.width = `${linkRect.width}px`;
   indicator.style.transform = `translateX(${linkRect.left - parentRect.left}px)`;
 }
 
-// 1️⃣ Disable transition on page load
+// Initialize indicator on page load without animation
 indicator.style.transition = "none";
-
-// 2️⃣ Set indicator position immediately under active link
 window.addEventListener("DOMContentLoaded", () => {
   moveIndicator(activeLink);
 
-  // 3️⃣ Re-enable transition for future hover/click
+  // Re-enable transition for hover/click
   requestAnimationFrame(() => {
     indicator.style.transition = "transform 0.3s ease, width 0.3s ease";
   });
 });
 
-// Hover (optional)
+// Hover effect
 links.forEach(link => {
   link.addEventListener("mouseenter", () => moveIndicator(link));
   link.addEventListener("mouseleave", () => moveIndicator(activeLink));
 
-  // Click
+  // Click event
   link.addEventListener("click", () => {
     activeLink.classList.remove("active");
     link.classList.add("active");
@@ -1968,8 +1924,10 @@ links.forEach(link => {
   });
 });
 
-// Update on window resize
-window.addEventListener("resize", () => moveIndicator(activeLink));
+// Recalculate indicator on window resize
+window.addEventListener("resize", () => {
+  moveIndicator(activeLink);
+});
 </script>
 
 
