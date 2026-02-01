@@ -407,7 +407,7 @@
       }
     }
 
-    @media (min-width: 1025px) and (max-width: 1440px) {
+    @media (min-width: 850px) and (max-width: 1025px) {
       .nav-links {
         display: none;
         position: relative;
@@ -450,7 +450,7 @@
       }
     }
 
-   @media (max-width: 768px) {
+   @media (max-width: 850px) {
     .navbar {
   perspective: 1000px;
 }
@@ -1901,7 +1901,7 @@ let activeLink = document.querySelector(".nav-links a.active") || links[0];
 // Function to move the indicator under a link
 function moveIndicator(link) {
   // Only show on desktop
-  if (window.innerWidth <= 1024) {
+  if (window.innerWidth <= 850) {
     indicator.style.width = "0px";
     return;
   }
