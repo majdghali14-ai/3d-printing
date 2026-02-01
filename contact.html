@@ -157,7 +157,35 @@
       color: hsl(var(--primary-foreground));
       background: linear-gradient(135deg, #f97316, #fb923c);
     }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
 
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #f97316, #fb923c);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 0.875rem;
+      color: white;
+    }
+
+    .logo-text {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 1.125rem;
+    }
+
+    .logo-text span {
+      color:  #f97316;
+    }
     .logo-text {
       font-weight: 600;
       font-size: 1.125rem;
@@ -316,99 +344,120 @@
 
    
   @media (max-width: 768px) {
-    
-
-/* Show menu when active */
-.nav-links.active {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translateX(0) translateY(0);
+    .navbar {
+  perspective: 1000px;
+}
+.nav-links {
+    visibility: hidden;
+  }
+.navbar {
+  background: #0a0f1a;
+  backdrop-filter:  20px;
+  /* -webkit-backdrop-filter: none; */
+}
+.navbar {
+  background: #0a0f1a;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
 
-
-  /* Navbar spacing */
-  .navbar {
-    padding: 12px 20px;
+  .nav-links.active {
+    visibility: visible;
   }
-
-  /* Mobile menu container */
   .nav-links {
-    opacity: 0;
-  pointer-events: none;
-  transform: translateX(0) translateY(-15px);
-    position: fixed;
-    top: 75px;
+    position: absolute;
+    top: 100%;
     left: 0;
-    width: 100%;
-    /* max-width: 420px; */
+    right: 0;
 
-    background: rgba(17, 24, 39, 0.97);
-    backdrop-filter: blur(18px);
-    border-radius: 18px;
-    padding: 12px;
+    /* EXACT navbar background */
+background: rgba(10, 15, 26, 0.7); /* semi-transparent for blur effect */
+    backdrop-filter: blur(20px);       /* blur added */
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(30, 58, 95, 0.5);
 
     display: flex;
     flex-direction: column;
     gap: 8px;
+    padding: 12px 16px;
 
-    box-shadow: 0 25px 50px rgba(0,0,0,0.6);
-    border: 1px solid var(--border);
+    transform-origin: top;
+    transform: rotateX(-90deg);
+    opacity: 0;
+    pointer-events: none;
+
+    transition:
+      transform 1s cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 1s ease;
+
     z-index: 999;
   }
 
+   /* Open state */
+  .nav-links.active {
+    transform: rotateX(0deg);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  
+
   /* Mobile links */
   .nav-links a {
-    text-decoration: none;
-    color: #fff;
-    width: 100%;
-    text-align: start;
     padding: 14px;
     border-radius: 12px;
     font-size: 1rem;
     font-weight: 500;
-    background: transparent;
-    transition: background 0.25s ease, transform 0.2s ease;
+    color: #fff;
+        text-decoration: none;
   }
 
   .nav-links a:hover {
     background: rgba(249, 115, 22, 0.15);
-    transform: translateY(-1px);
   }
 
-  /* Active tab */
   .nav-links a.active {
     background: linear-gradient(135deg, #f97316, #fb923c);
     color: #fff;
   }
 
-  /* Disable slider on mobile */
+  /* Disable slider */
   .nav-links span {
     display: none;
   }
 
-  /* Show hamburger button */
   .mobile-menu-btn {
     display: block;
   }
 }
-    /* Floating Particles */
-    .particles-container {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      overflow: hidden;
-      z-index: 0;
-    }
+       /* Particles container covers full page */
+.particles-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: -1; /* behind all content */
+  background: #0a0f1a; /* dark background, change as needed */
+}
 
-    .particle {
-      position: absolute;
-      width: 4px;
-      height: 4px;
-      background: hsl(var(--primary));
-      border-radius: 50%;
-      opacity: 0.3;
-    }
+/* Each particle */
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.3;
+  background: #f97316; /* primary color */
+  pointer-events: none;
+  animation-name: floatParticle;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
 
+/* Particle float animation */
+@keyframes floatParticle {
+  0% { transform: translateY(0) translateX(0) scale(1); opacity: 0.3; }
+  50% { transform: translateY(-30px) translateX(20px) scale(1.3); opacity: 0.6; }
+  100% { transform: translateY(0) translateX(0) scale(1); opacity: 0.3; }
+}
     /* Hero Section */
     .hero {
       padding: 10rem 0 6rem;
@@ -1007,7 +1056,7 @@
         <a href="">Home</a>
         <a href="">Products</a>
         <a href="services.html">Services</a>
-        <a href="index.html" >About</a>
+        <a href="about.html" >About</a>
         <a href="contact.html" class="active">Contact</a>
         <span></span>
       </div>
@@ -1387,45 +1436,40 @@
     </svg>
     <span id="toastMessage">Message sent successfully!</span>
   </div>
-
   <script>
-    // Mobile Menu Toggle
-   const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-    const navLinks = document.querySelector('.nav-links');
+  const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+  const navLinks = document.querySelector('.nav-links');
 
-    if (mobileMenuBtn) {
-      mobileMenuBtn.addEventListener('click', () => {
-       navLinks.classList.toggle('active');
-        if (navLinks.style.display === 'flex') {
-          navLinks.style.display = 'none';
-        } else {
-          navLinks.style.display = 'flex';
-          navLinks.style.flexDirection = 'column';
-          navLinks.style.position = 'absolute';
-          navLinks.style.top = '64px';
-          navLinks.style.left = '0';
-          navLinks.style.right = '0';
-          navLinks.style.background = 'var(--background)';
-          navLinks.style.padding = '1rem';
-          navLinks.style.borderBottom = '1px solid var(--border)';
-        }
-      });
-    }
-    // Floating Particles
-    const particlesContainer = document.getElementById('particles');
-    const particleCount = 30;
+  mobileMenuBtn.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+    mobileMenuBtn.classList.toggle('active');
+  });
+</script>
+  <script>
+const particlesContainer = document.getElementById('particles');
+const particleCount = 50; // adjust as needed
 
-    for (let i = 0; i < particleCount; i++) {
-      const particle = document.createElement('div');
-      particle.className = 'particle animate-float';
-      particle.style.left = Math.random() * 100 + '%';
-      particle.style.top = Math.random() * 100 + '%';
-      particle.style.width = (Math.random() * 4 + 2) + 'px';
-      particle.style.height = particle.style.width;
-      particle.style.animationDelay = Math.random() * 6 + 's';
-      particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
-      particlesContainer.appendChild(particle);
-    }
+for (let i = 0; i < particleCount; i++) {
+  const particle = document.createElement('div');
+  particle.className = 'particle';
+
+  // Random position
+  particle.style.left = Math.random() * 100 + '%';
+  particle.style.top = Math.random() * 100 + '%';
+
+  // Random size
+  const size = Math.random() * 4 + 2;
+  particle.style.width = size + 'px';
+  particle.style.height = size + 'px';
+
+  // Random animation duration and delay
+  particle.style.animationDuration = (Math.random() * 6 + 4) + 's';
+  particle.style.animationDelay = (Math.random() * 6) + 's';
+
+  // Append to container
+  particlesContainer.appendChild(particle);
+}
+
 
     // Scroll Reveal Animation
     const revealElements = document.querySelectorAll('.reveal');
@@ -1507,38 +1551,50 @@
     });
   </script>
   <script>
-  const links = document.querySelectorAll(".nav-links a");
-  const indicator = document.querySelector(".nav-links span");
+const links = document.querySelectorAll(".nav-links a");
+const indicator = document.querySelector(".nav-links span");
+let activeLink = document.querySelector(".nav-links a.active") || links[0];
 
-  // Find the initial active link
-  let activeLink = document.querySelector(".nav-links a.active") || links[0];
+function moveIndicator(link) {
+  const linkRect = link.getBoundingClientRect();
+  const parentRect = link.parentElement.getBoundingClientRect();
+  indicator.style.width = linkRect.width + "px";
+  indicator.style.transform = `translateX(${linkRect.left - parentRect.left}px)`;
+}
 
-  function moveIndicator(el) {
-    const rect = el.getBoundingClientRect();
-    const parentRect = el.parentElement.getBoundingClientRect();
-    indicator.style.width = rect.width + "px";
-    indicator.style.transform = `translateX(${rect.left - parentRect.left}px)`;
-  }
+// 1️⃣ Disable transition on page load
+indicator.style.transition = "none";
 
-  // Set indicator on page load
+// 2️⃣ Set indicator position immediately under active link
+window.addEventListener("DOMContentLoaded", () => {
   moveIndicator(activeLink);
 
-  // Hover effect
-  links.forEach(link => {
-    link.addEventListener("mouseenter", () => moveIndicator(link));
-    link.addEventListener("mouseleave", () => moveIndicator(activeLink));
-    link.addEventListener("click", (e) => {
-      activeLink.classList.remove("active");
-      link.classList.add("active");
-      activeLink = link;
-      moveIndicator(activeLink);
-    });
+  // 3️⃣ Re-enable transition for future hover/click
+  requestAnimationFrame(() => {
+    indicator.style.transition = "transform 0.3s ease, width 0.3s ease";
   });
+});
 
-  // Optional: update indicator on window resize
-  window.addEventListener("resize", () => moveIndicator(activeLink));
+// Hover (optional)
+links.forEach(link => {
+  link.addEventListener("mouseenter", () => moveIndicator(link));
+  link.addEventListener("mouseleave", () => moveIndicator(activeLink));
+
+  // Click
+  link.addEventListener("click", () => {
+    activeLink.classList.remove("active");
+    link.classList.add("active");
+    activeLink = link;
+    moveIndicator(activeLink);
+    // Link will navigate normally
+  });
+});
+
+// Update on window resize
+window.addEventListener("resize", () => moveIndicator(activeLink));
 </script>
+
+
 
 </body>
 </html>
-
