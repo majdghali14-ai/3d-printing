@@ -15,6 +15,11 @@
     }
 
     :root {
+            --muted-foregroundd: 220 10% 60%;
+      --primary-foregroundd: 60 10% 98%;
+      --secondaryy: 220 15% 18%;
+      --primaryy: 25 95% 55%;
+      --borderr: 220 15% 20%;
       --background: 220 15% 8%;
       --foreground: 60 10% 95%;
       --card: 220 15% 12%;
@@ -109,49 +114,49 @@
     .animation-delay-600 { animation-delay: 0.6s; }
 
     /* Scroll Reveal */
-    .reveal {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    }
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
-    .reveal.active {
-      opacity: 1;
-      transform: translateY(0);
-    }
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
 
-    .reveal-left {
-      opacity: 0;
-      transform: translateX(-40px);
-      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    }
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
-    .reveal-left.active {
-      opacity: 1;
-      transform: translateX(0);
-    }
+.reveal-left.active {
+  opacity: 1;
+  transform: translateX(0);
+}
 
-    .reveal-right {
-      opacity: 0;
-      transform: translateX(40px);
-      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    }
+.reveal-right {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
-    .reveal-right.active {
-      opacity: 1;
-      transform: translateX(0);
-    }
+.reveal-right.active {
+  opacity: 0;
+  transform: translateX(0);
+}
 
-    .reveal-scale {
-      opacity: 0;
-      transform: scale(0.9);
-      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    }
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
-    .reveal-scale.active {
-      opacity: 1;
-      transform: scale(1);
-    }
+.reveal-scale.active {
+  opacity: 1;
+  transform: scale(1);
+}
 
     /* Floating Particles */
     .particles {
@@ -248,7 +253,35 @@
       color: hsl(var(--primary-foreground));
       background: linear-gradient(135deg, #f97316, #fb923c);
     }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
 
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #f97316, #fb923c);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 0.875rem;
+      color: white;
+    }
+
+    .logo-text {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 1.125rem;
+    }
+
+    .logo-text span {
+      color:  #f97316;
+    }
     .logo-text {
       font-weight: 600;
       font-size: 1.125rem;
@@ -407,82 +440,121 @@
 
    
   @media (max-width: 768px) {
-    
-
-/* Show menu when active */
-.nav-links.active {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translateX(0) translateY(0);
+    .navbar {
+  perspective: 1000px;
+}
+.nav-links {
+    visibility: hidden;
+  }
+.navbar {
+  background: #0a0f1a;
+  backdrop-filter:  20px;
+  /* -webkit-backdrop-filter: none; */
+}
+.navbar {
+  background: #0a0f1a;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
 
-
-  /* Navbar spacing */
-  .navbar {
-    padding: 12px 20px;
+  .nav-links.active {
+    visibility: visible;
   }
-
-  /* Mobile menu container */
   .nav-links {
-    opacity: 0;
-  pointer-events: none;
-  transform: translateX(0) translateY(-15px);
-    position: fixed;
-    top: 75px;
+    position: absolute;
+    top: 100%;
     left: 0;
-    width: 100%;
-    /* max-width: 420px; */
+    right: 0;
 
-    background: rgba(17, 24, 39, 0.97);
-    backdrop-filter: blur(18px);
-    border-radius: 18px;
-    padding: 12px;
+    /* EXACT navbar background */
+background: rgba(10, 15, 26, 0.7); /* semi-transparent for blur effect */
+    backdrop-filter: blur(20px);       /* blur added */
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(30, 58, 95, 0.5);
 
     display: flex;
     flex-direction: column;
     gap: 8px;
+    padding: 12px 16px;
 
-    box-shadow: 0 25px 50px rgba(0,0,0,0.6);
-    border: 1px solid var(--border);
+    transform-origin: top;
+    transform: rotateX(-90deg);
+    opacity: 0;
+    pointer-events: none;
+
+    transition:
+      transform 1s cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 1s ease;
+
     z-index: 999;
   }
 
+   /* Open state */
+  .nav-links.active {
+    transform: rotateX(0deg);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  
+
   /* Mobile links */
   .nav-links a {
-    text-decoration: none;
-    color: #fff;
-    width: 100%;
-    text-align: start;
     padding: 14px;
     border-radius: 12px;
     font-size: 1rem;
     font-weight: 500;
-    background: transparent;
-    transition: background 0.25s ease, transform 0.2s ease;
+        color: #fff;
+        text-decoration: none;
+
   }
 
   .nav-links a:hover {
     background: rgba(249, 115, 22, 0.15);
-    transform: translateY(-1px);
   }
 
-  /* Active tab */
   .nav-links a.active {
     background: linear-gradient(135deg, #f97316, #fb923c);
     color: #fff;
   }
 
-  /* Disable slider on mobile */
+  /* Disable slider */
   .nav-links span {
     display: none;
   }
 
-  /* Show hamburger button */
   .mobile-menu-btn {
     display: block;
   }
 }
+ /* Particles container covers full page */
+.particles-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: -1; /* behind all content */
+  background: #0a0f1a; /* dark background, change as needed */
+}
 
+/* Each particle */
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.3;
+  background: #f97316; /* primary color */
+  pointer-events: none;
+  animation-name: floatParticle;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
+/* Particle float animation */
+@keyframes floatParticle {
+  0% { transform: translateY(0) translateX(0) scale(1); opacity: 0.3; }
+  50% { transform: translateY(-30px) translateX(20px) scale(1.3); opacity: 0.6; }
+  100% { transform: translateY(0) translateX(0) scale(1); opacity: 0.3; }
+}
     /* Hero Section */
     .hero {
       position: relative;
@@ -493,6 +565,22 @@
       overflow: hidden;
       padding-top: 5rem;
     }
+     .hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150%;
+  height: 100%;
+  background: radial-gradient(
+    ellipse at center top,
+    hsla(25, 95%, 55%, 0.15) 0%,
+    transparent 60%
+  );
+  pointer-events: none;
+}
+
 
     .hero-content {
       text-align: center;
@@ -546,7 +634,7 @@
       left: 0;
       right: 0;
       height: 8rem;
-      background: linear-gradient(to top, hsl(var(--background)), transparent);
+      margin-bottom: 40px;
     }
 
     @media (min-width: 768px) {
@@ -572,7 +660,6 @@
       display: inline-flex;
       padding: 0.5rem 1rem;
       border-radius: 9999px;
-      background: hsl(var(--secondary));
       border: 1px solid hsl(var(--border));
       font-size: 0.875rem;
       color: hsl(var(--primary));
@@ -690,7 +777,6 @@
     /* Process Section */
     .process-section {
       padding: 6rem 0;
-      background: linear-gradient(180deg, hsl(220 15% 10%), hsl(220 15% 8%));
     }
 
     .process-grid {
@@ -809,7 +895,7 @@
     /* Pricing Section */
     .pricing-section {
       padding: 6rem 0;
-      background: linear-gradient(180deg, hsl(220 15% 10%), hsl(220 15% 8%));
+      /* background: linear-gradient(180deg, hsl(220 15% 10%), hsl(220 15% 8%)); */
     }
 
     .pricing-grid {
@@ -1069,57 +1155,40 @@
 
     /* Footer */
     .footer {
-      background: hsl(220 15% 6%);
-      border-top: 1px solid hsl(var(--border) / 0.5);
+      border-top: 1px solid hsl(var(--borderr));
       padding: 4rem 0 2rem;
+      position: relative;
+      z-index: 10;
     }
 
     .footer-grid {
       display: grid;
-      gap: 2rem;
+      gap: 3rem;
       margin-bottom: 3rem;
     }
 
-    @media (min-width: 768px) {
-      .footer-grid { grid-template-columns: repeat(2, 1fr); }
+    @media (min-width: 640px) {
+      .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
 
     @media (min-width: 1024px) {
-      .footer-grid { grid-template-columns: 2fr 1fr 1fr 1fr; }
+      .footer-grid {
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+      }
     }
 
-    .footer-brand-description {
-      color: hsl(var(--muted-foreground));
-      margin: 1rem 0;
+    .footer-brand p {
+      color: hsl(var(--muted-foregroundd));
+      font-size: 0.9375rem;
+      margin-top: 1rem;
       max-width: 20rem;
-      font-size: 0.875rem;
     }
 
-    .footer-socials {
-      display: flex;
-      gap: 0.75rem;
-    }
-
-    .footer-social-link {
-      width: 2.5rem;
-      height: 2.5rem;
-      border-radius: 0.5rem;
-      background: hsl(var(--secondary));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: hsl(var(--muted-foreground));
-      transition: all 0.2s;
-    }
-
-    .footer-social-link:hover {
-      background: hsl(var(--primary));
-      color: hsl(var(--primary-foreground));
-    }
-
-    .footer-title {
+    .footer-column h4 {
       font-weight: 600;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
     }
 
     .footer-links {
@@ -1130,19 +1199,19 @@
     }
 
     .footer-links a {
-      color: hsl(var(--muted-foreground));
+      color: hsl(var(--muted-foregroundd));
       text-decoration: none;
-      font-size: 0.875rem;
+      font-size: 0.9375rem;
       transition: color 0.2s;
     }
 
     .footer-links a:hover {
-      color: hsl(var(--primary));
+      color: hsl(var(--primaryy));
     }
 
     .footer-bottom {
       padding-top: 2rem;
-      border-top: 1px solid hsl(var(--border) / 0.5);
+      border-top: 1px solid hsl(var(--borderr));
       display: flex;
       flex-direction: column;
       gap: 1rem;
@@ -1158,29 +1227,57 @@
       }
     }
 
-    .footer-copyright {
-      color: hsl(var(--muted-foreground));
+    .footer-bottom p {
+      color: hsl(var(--muted-foregroundd));
       font-size: 0.875rem;
     }
 
-    .footer-legal-links {
+/* Social Links */
+    .social-section {
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid hsla(220, 15%, 20%, 0.5);
+    }
+
+    .social-title {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: hsl(var(--muted-foregroundd));
+      margin-bottom: 1rem;
+    }
+
+    .social-links {
       display: flex;
-      gap: 1.5rem;
+      gap: 0.75rem;
     }
 
-    .footer-legal-links a {
-      color: hsl(var(--muted-foreground));
-      text-decoration: none;
-      font-size: 0.875rem;
-      transition: color 0.2s;
+    .social-link {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 0.5rem;
+      background: hsl(var(--secondaryy));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: hsl(var(--muted-foregroundd));
+      transition: background 0.2s, color 0.2s;
     }
 
-    .footer-legal-links a:hover {
-      color: hsl(var(--primary));
+    .social-link:hover {
+      background: hsl(var(--primaryy));
+      color: hsl(var(--primary-foregroundd));
     }
+
+    .social-link svg {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+
   </style>
 </head>
 <body>
+    <div id="particles" class="particles-container"></div>
+
   <!-- Navigation -->
   <nav class="navbar">
     <div class="container navbar-inner">
@@ -1218,15 +1315,7 @@
   </nav>
   <!-- Hero Section -->
   <section class="hero">
-    <div class="particles">
-      <div class="particle particle-1"></div>
-      <div class="particle particle-2"></div>
-      <div class="particle particle-3"></div>
-      <div class="dot dot-1"></div>
-      <div class="dot dot-2"></div>
-      <div class="dot dot-3"></div>
-      <div class="dot dot-4"></div>
-    </div>
+    
 
     <div class="container">
       <div class="hero-content">
@@ -1710,162 +1799,180 @@
   <footer class="footer">
     <div class="container">
       <div class="footer-grid">
-        <div>
+        <div class="footer-brand">
           <a href="/" class="logo">
-            <div class="logo-icon font-display">3D</div>
+            <div class="logo-icon bg-gradient-primary font-display">3D</div>
             <span class="logo-text font-display">Print<span>Studio</span></span>
           </a>
-          <p class="footer-brand-description">
-            Transforming ideas into reality with cutting-edge 3D printing technology. 
-            Quality, precision, and innovation in every print.
-          </p>
-          <div class="footer-socials">
-            <a href="#" class="footer-social-link">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
-              </svg>
-            </a>
-            <a href="#" class="footer-social-link">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-              </svg>
-            </a>
-            <a href="#" class="footer-social-link">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-              </svg>
-            </a>
-            <a href="#" class="footer-social-link">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-              </svg>
-            </a>
-          </div>
+          <p>Transforming ideas into reality through precision 3D printing and innovative design solutions.</p>
         </div>
-
-        <div>
-          <h4 class="footer-title font-display">Services</h4>
+        
+        <div class="footer-column">
+          <h4>Quick Links</h4>
           <ul class="footer-links">
-            <li><a href="/services.html">Rapid Prototyping</a></li>
-            <li><a href="/services.html">Custom Design</a></li>
-            <li><a href="/services.html">Batch Production</a></li>
-            <li><a href="/services.html">Industrial Printing</a></li>
-            <li><a href="/services.html">Post-Processing</a></li>
-          </ul>
-        </div>
-
-        <div>
-          <h4 class="footer-title font-display">Company</h4>
-          <ul class="footer-links">
-            <li><a href="/about.html">About Us</a></li>
+            <li><a href="/">Home</a></li>
+            <li><a href="/products">Products</a></li>
+            <li><a href="/services">Services</a></li>
+            <li><a href="/index.html">About Us</a></li>
             <li><a href="/contact.html">Contact</a></li>
-            <li><a href="#">Careers</a></li>
-            <li><a href="#">Blog</a></li>
-            <li><a href="#">Press</a></li>
           </ul>
         </div>
-
-        <div>
-          <h4 class="footer-title font-display">Support</h4>
+        
+        <div class="footer-column">
+          <h4>Services</h4>
           <ul class="footer-links">
-            <li><a href="#">Help Center</a></li>
-            <li><a href="#">File Guidelines</a></li>
-            <li><a href="#">Material Guide</a></li>
+            <li><a href="#">Rapid Prototyping</a></li>
+            <li><a href="#">Custom Design</a></li>
+            <li><a href="#">Small Batch Production</a></li>
+            <li><a href="#">3D Scanning</a></li>
+            <li><a href="#">Consultation</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h4>Support</h4>
+          <ul class="footer-links">
+            <li><a href="#">FAQ</a></li>
             <li><a href="#">Shipping Info</a></li>
-            <li><a href="/contact.html">Get a Quote</a></li>
+            <li><a href="#">Return Policy</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
           </ul>
         </div>
       </div>
-
+      
       <div class="footer-bottom">
-        <p class="footer-copyright">© 2024 3D PrintStudio. All rights reserved.</p>
-        <div class="footer-legal-links">
-          <a href="#">Privacy Policy</a>
-          <a href="#">Terms of Service</a>
-          <a href="#">Cookie Policy</a>
+        <p>&copy; 2024 3D PrintStudio. All rights reserved.</p>
+        <div class="social-links">
+          <a href="#" class="social-link" aria-label="Twitter">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
+            </svg>
+          </a>
+          <a href="#" class="social-link" aria-label="Instagram">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+              <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+            </svg>
+          </a>
+          <a href="#" class="social-link" aria-label="LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+              <rect width="4" height="12" x="2" y="9"></rect>
+              <circle cx="4" cy="4" r="2"></circle>
+            </svg>
+          </a>
         </div>
       </div>
     </div>
   </footer>
-
+ 
   <script>
-    // Mobile Menu Toggle
-   const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-    const navLinks = document.querySelector('.nav-links');
+  const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+  const navLinks = document.querySelector('.nav-links');
 
-    if (mobileMenuBtn) {
-      mobileMenuBtn.addEventListener('click', () => {
-       navLinks.classList.toggle('active');
-        if (navLinks.style.display === 'flex') {
-          navLinks.style.display = 'none';
-        } else {
-          navLinks.style.display = 'flex';
-          navLinks.style.flexDirection = 'column';
-          navLinks.style.position = 'absolute';
-          navLinks.style.top = '64px';
-          navLinks.style.left = '0';
-          navLinks.style.right = '0';
-          navLinks.style.background = 'var(--background)';
-          navLinks.style.padding = '1rem';
-          navLinks.style.borderBottom = '1px solid var(--border)';
-        }
-      });
-    }
-    
-    // Scroll reveal animation
-    function reveal() {
-      const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
-      
-      reveals.forEach((element, index) => {
-        const windowHeight = window.innerHeight;
-        const elementTop = element.getBoundingClientRect().top;
-        const elementVisible = 150;
-        
-        if (elementTop < windowHeight - elementVisible) {
-          setTimeout(() => {
-            element.classList.add('active');
-          }, index * 100);
-        }
-      });
-    }
-
-    window.addEventListener('scroll', reveal);
-    window.addEventListener('load', reveal);
-  </script>
+  mobileMenuBtn.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+    mobileMenuBtn.classList.toggle('active');
+  });
+</script>
+ 
   <script>
-  const links = document.querySelectorAll(".nav-links a");
-  const indicator = document.querySelector(".nav-links span");
+     // Select all elements with reveal classes
+const reveals = document.querySelectorAll(".reveal, .reveal-left, .reveal-right, .reveal-scale");
 
-  // Find the initial active link
-  let activeLink = document.querySelector(".nav-links a.active") || links[0];
+function revealOnScroll() {
+  const windowHeight = window.innerHeight;
 
-  function moveIndicator(el) {
-    const rect = el.getBoundingClientRect();
-    const parentRect = el.parentElement.getBoundingClientRect();
-    indicator.style.width = rect.width + "px";
-    indicator.style.transform = `translateX(${rect.left - parentRect.left}px)`;
-  }
+  reveals.forEach((el) => {
+    const elementTop = el.getBoundingClientRect().top;
+    const elementVisible = 150; // trigger before element fully in view
 
-  // Set indicator on page load
+    if (elementTop < windowHeight - elementVisible) {
+      // Add a small stagger delay for each element
+      const delay = el.dataset.delay || 0; // optional: set delay via HTML
+      setTimeout(() => {
+        el.classList.add("active");
+      }, delay);
+    } else {
+      el.classList.remove("active");
+    }
+  });
+}
+
+// Trigger on scroll and on page load
+window.addEventListener("scroll", revealOnScroll);
+revealOnScroll();
+
+
+    const particlesContainer = document.getElementById('particles');
+const particleCount = 50; // adjust as needed
+
+for (let i = 0; i < particleCount; i++) {
+  const particle = document.createElement('div');
+  particle.className = 'particle';
+
+  // Random position
+  particle.style.left = Math.random() * 100 + '%';
+  particle.style.top = Math.random() * 100 + '%';
+
+  // Random size
+  const size = Math.random() * 4 + 2;
+  particle.style.width = size + 'px';
+  particle.style.height = size + 'px';
+
+  // Random animation duration and delay
+  particle.style.animationDuration = (Math.random() * 6 + 4) + 's';
+  particle.style.animationDelay = (Math.random() * 6) + 's';
+
+  // Append to container
+  particlesContainer.appendChild(particle);
+}
+const links = document.querySelectorAll(".nav-links a");
+const indicator = document.querySelector(".nav-links span");
+let activeLink = document.querySelector(".nav-links a.active") || links[0];
+
+function moveIndicator(link) {
+  const linkRect = link.getBoundingClientRect();
+  const parentRect = link.parentElement.getBoundingClientRect();
+  indicator.style.width = linkRect.width + "px";
+  indicator.style.transform = `translateX(${linkRect.left - parentRect.left}px)`;
+}
+
+// 1️⃣ Disable transition on page load
+indicator.style.transition = "none";
+
+// 2️⃣ Set indicator position immediately under active link
+window.addEventListener("DOMContentLoaded", () => {
   moveIndicator(activeLink);
 
-  // Hover effect
-  links.forEach(link => {
-    link.addEventListener("mouseenter", () => moveIndicator(link));
-    link.addEventListener("mouseleave", () => moveIndicator(activeLink));
-    link.addEventListener("click", (e) => {
-      activeLink.classList.remove("active");
-      link.classList.add("active");
-      activeLink = link;
-      moveIndicator(activeLink);
-    });
+  // 3️⃣ Re-enable transition for future hover/click
+  requestAnimationFrame(() => {
+    indicator.style.transition = "transform 0.3s ease, width 0.3s ease";
   });
+});
 
-  // Optional: update indicator on window resize
-  window.addEventListener("resize", () => moveIndicator(activeLink));
+// Hover (optional)
+links.forEach(link => {
+  link.addEventListener("mouseenter", () => moveIndicator(link));
+  link.addEventListener("mouseleave", () => moveIndicator(activeLink));
+
+  // Click
+  link.addEventListener("click", () => {
+    activeLink.classList.remove("active");
+    link.classList.add("active");
+    activeLink = link;
+    moveIndicator(activeLink);
+    // Link will navigate normally
+  });
+});
+
+// Update on window resize
+window.addEventListener("resize", () => moveIndicator(activeLink));
 </script>
+
 
   
 </body>
 </html>
-
